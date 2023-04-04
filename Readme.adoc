@@ -30,7 +30,7 @@
 === head / tail / less
 * `head -3 ~/bin/ismrest/ism_cmd`
 * `ssh rhel85 tail /var/log/messages`
-* Auf rhel85: 'tail -f /var/log/messages'
+* Auf rhel85: `tail -f /var/log/messages`
 * `ssh klingelpi.fritz.box docker ps | less -S`
 
 == Filtern und Bearbeiten
