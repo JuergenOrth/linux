@@ -1,0 +1,66 @@
+= Linux file processing
+:toc: left
+:toc-title: Inhalt
+
+== Dies und das
+
+=== Rechnen
+* Bash: `echo $\(( 22/7 ))`
+* dc: `echo 2 k 22 7 / p | dc`
+* bc: `echo '22/7' | bc`
+* bc: `echo '22/7' | bc -l`
+* `alias calc='bc -l <<<`
+* `calc '4*a(1)'`
+
+== Suchen & Finden
+
+=== ls
+* `ls -ltr`
+* `-a -h -i`
+
+=== find
+* `find . -name '*.yml' -exec ls -l {} \;`
+
+=== type / which / file
+* `type datei`
+* `type lp`
+* `type -p datei`
+* `file $(type -p datei)`
+
+=== head / tail / less
+* `head -3 ~/bin/ismrest/ism_cmd`
+* `ssh rhel85 tail /var/log/messages`
+* Auf rhel85: 'tail -f /var/log/messages'
+* `ssh klingelpi.fritz.box docker ps | less -S`
+
+== Filtern und Bearbeiten
+
+=== grep
+* `grep orth project.txt`
+* `grep -i orth project.txt`
+* `grep -i o.*h project.txt`
+* `grep -iv orth project.txt`
+* `less sshd_config`
+* `rmc` = 'egrep  -v "^\s*$|#" $@'
+* `cat sshd_config` vs. `rmc sshd_config`
+
+=== sed
+
+* Editieren/Erweitern `environment`
+* Editieren mit vi
+* Ändern mit `sed -i 's/:.*/:4711/' environment`
+
+=== awk
+
+* Check Datei 'project.txt'
+* Ändern mit `awk '$3=="Telekom" {sum+=$2} END {print "Telekom:",sum}' project.txt`
+
+=== jq
+
+* Ansehen people.json
+* Fehler finden
+* jq als Validierer/Formatierer `jq . ismnodes.json`
+* `cat people.json | jq '.Peoples[]|select(.Gender=="female")`
+* `cat people.json | jq -j '.Peoples[]|select(.Gender=="male")|.FirstName," ",.LastName,"\n"'`
+* `cat people.json | jq '.Peoples[]|select(.LastName=="Bauer")|.Topic="K8s"'`
+* `j2y <people.json`
