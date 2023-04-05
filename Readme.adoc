@@ -9,7 +9,7 @@
 * dc: `echo 2 k 22 7 / p | dc`
 * bc: `echo '22/7' | bc`
 * bc: `echo '22/7' | bc -l`
-* `alias calc='bc -l <<<`
+* `alias calc='bc -l <<<'`
 * `calc '4*a(1)'`
 
 == Suchen & Finden
