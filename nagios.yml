@@ -1,0 +1,15 @@
+---
+version: "3"
+services:
+  nagios4:
+    restart: always
+    image: rdicaire/nagios-arm32
+    volumes:
+      - /opt/nagios/.ssh/:/opt/nagios/.ssh/
+      - /opt/nagios/etc/:/opt/nagios/etc/
+      - /opt/nagios/var:/opt/nagios/var/
+      - /opt/nagios/plugins:/opt/Custom-Nagios-Plugins/
+    ports:
+      - 8080:80
+    environment:
+      - NAGIOS_TIMEZONE=CET

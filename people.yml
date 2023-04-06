@@ -1,0 +1,31 @@
+---
+Version: 1
+Date: '2023-04-01'
+Peoples:
+- LastName: Orth
+  FirstName: Juergen
+  Department: CIS
+  Gender: male
+- LastName: Swjatoduch
+  FirstName: Viktoria
+  Department: Sales
+  Gender: female
+- LastName: Bauer
+  FirstName: Hannah
+  Department: CIS
+  Gender: female
+- LastName: Langosch
+  FirstName: Justin
+  Department: CIS
+  Gender: male
+- LastName: Rausch
+  FirstName: Gerald
+  Department: PS
+  Hobbies:
+  - Musik
+  - Fahrradfahren
+  Gender: male
+- LastName: Liebel
+  FirstName: Markus
+  Department: Sales
+  Gender: male

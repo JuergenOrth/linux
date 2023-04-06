@@ -1,0 +1,43 @@
+= Aufgaben und Lösungen
+
+== 06.04.2023
+
+* Transferiere die angehängte Datei auf eine Linux-Umgebung und packe sie dort aus (Tipp: `man tar` oder `info tar` oder googlen etwa nach „tgz entpacken“). 
+
+```
+# Annahme: toi.tgz ist im aktuellen Verzeichnis
+scp toi.tgz user@remoteserver:/tmp
+ssh user@remoteserver
+# Ab hier arbeiten wir auf dem remoteserver
+cd /tmp
+tar tzf toi.tgz 	# Auflisten Inhalt
+tar xzf toi.tgz		# Entpacken Inhalt
+cd TOI
+```
+
+* Erweitere deine ~/.bashrc um zwei Aliase `calc` und `ll`, die für Berechnungen bzw. die Ausgabe von `ls` im „long“ Format genutzt werden können.
+```
+echo '
+### my new aliases
+alias calc="bc -l <<<"
+alias ll="ls -l"' >>~/.bashrc
+# Einlesen der Änderungen
+. ~/.bashrc
+```
+* Ändere/aktiviere den Parameter „PermitRootLogin“ in der ssh_config mittels `sed` auf den Wert „no“
+```
+sed -i '/#PermitRootLogin/ s/^#//; s/\s.*/ no/' sshd_config
+# now sshd should be restarted to get changes active
+# etwa: sudo systemctl restart sshd
+```
+
+* Ermittle die durchschnittliche Stundenanzahl aller Einträge in der Datei „project.txt“
+```
+awk 'NR>1 { count++; sum+=$2 } # NR>1 ==> skip title line
+     END { printf("Mittelwert ist: %6.2f\n",sum/count) }' project.txt
+```
+* Liste alle Mitarbeiter der Abteilung „CIS“ aus der Datei „people.json“ im Format „Nachname, Vorname (Geschlecht)“ zeilenweise auf.
+```
+jq -j '.Peoples[] | select(.Department=="CIS") | 
+	.LastName,", ",.FirstName," (",.Gender,") \n"' people.json
+```

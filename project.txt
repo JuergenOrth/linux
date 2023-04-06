@@ -1,0 +1,6 @@
+NAME		STUNDEN	KUNDE
+Rausch		13	KFW
+Festl		27	Dataport
+Orth		11	Telekom
+Langosch	11	Telekom
+Bauer		17	KFW
