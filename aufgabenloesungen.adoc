@@ -26,9 +26,18 @@ alias ll="ls -l"' >>~/.bashrc
 ```
 * Ändere/aktiviere den Parameter „PermitRootLogin“ in der ssh_config mittels `sed` auf den Wert „no“
 ```
+## Die "echoe sshd_config" steht meist in /etc/ssh. Wir ändern hier nur dim Spiel-Version im TOI-Verzeichnis! Die als Kommentar markierten Werte sind die Defaults.
 sed -i '/#PermitRootLogin/ s/^#//; s/\s.*/ no/' sshd_config
-# now sshd should be restarted to get changes active
-# etwa: sudo systemctl restart sshd
+
+## Andere Lösung, wo man später die Änderung besser nachverfolgen kann, etwa durch diff sshd_*:
+sed  -i.orig /^#PermitRootLogin/ a \
+# Added by JO \
+PermitRootLogin no' sshd_config
+
+## now sshd should be restarted to get changes active
+## etwa: sudo systemctl restart sshd
+## ACHTUNG: wenn man den Wert auf "no" geändert und aktiviert hat, kann man sich nicht mehr als root via ssh anmelden!
+## Dann muss man sich als "normaler" User anmelden und ggf. mittels "su" root werden.
 ```
 
 * Ermittle die durchschnittliche Stundenanzahl aller Einträge in der Datei „project.txt“
