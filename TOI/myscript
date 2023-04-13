@@ -1,0 +1,54 @@
+#!/bin/bash
+echo Usage: $0 [param [..]]
+echo Usage: ${0##*/} [param [..]]
+
+x=value_x
+y=value_y
+z=value_z
+
+for var in x y z
+do
+	eval echo Variable $var=\$$var
+done
+echo ==============================
+
+for ((i=0;i<=$#;i++))
+do
+        eval echo Parameter $i \$$i
+done
+echo ==============================
+
+echo Parameter 0 $0
+i=0
+for param in "$@"
+do
+	((i++))
+	echo Paramater $i $param
+done
+echo ==============================
+
+for i in $(seq 0 $#)
+do
+        eval echo Parameter $i \$$i
+done
+echo ==============================
+
+i=0
+while [ $i -le $# ]
+do
+        eval echo Parameter $i \$$i
+        ((i++))
+done
+echo ==============================
+
+i=0
+echo Parameter 0 $0
+while [ "$1" ]
+do
+        ((i++))
+        echo Parameter $i $1
+        shift
+done
+echo ==============================
+
+

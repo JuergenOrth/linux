@@ -2,7 +2,131 @@
 :toc: left
 :toc-title: Inhalt
 
-== Dies und das
+== 2023-04-11: Recap, Help, Git, FTP, Shell-Vars, ~ processing, docker example
+
+=== FTP-Server: Datenaustausch FTS<=>Kunde
+
+Siehe auch TOI/Datenaustausch-FTS-Kunde.pptx
+
+```
+HMBJOrth@G02DEXN04899 /tmp/linux/TOI
+$ ftp datastore.fsc.net
+Verbindung mit datastore.fsc.net wurde hergestellt.
+220-Welcome to the Fujitsu FTP server datastore.fsc.net.
+220 Fujitsu Datastore Server Ready!
+550 Command not recognized or allowed.
+Benutzer (datastore.fsc.net:(none)): anonymous
+331-Enter e-mail for password.
+331 Username OK.  Need password.
+Kennwort:                               # password is "ftp"
+230 Password OK.  Connected.
+ftp> cd outgoing
+250 "/outgoing/" CWD command successful.
+ftp> put myscript
+200 PORT command successful. 172.26.192.15:2527.
+150-Quota space available: 498.98 GB
+150 Opening BINARY data connection.  Ready to write file /outgoing/myscript. S T
+ O R
+226-Quota space available: 498.98 GB
+226-Upload File Size:792 bytes @ 0K/sec. MD5=ab05b5996c5e375d48d780e44c2808df
+226 Transfer complete.  MD5=ab05b5996c5e375d48d780e44c2808df ("/outgoing/myscrip
+t" 792) STOR
+FTP: 792 Bytes gesendet in 0.07Sekunden 11.31KB/s
+ftp> quit
+221 Goodbye.
+
+HMBJOrth@G02DEXN04899 /tmp/linux/TOI
+$ sftp anonymous@datastore.ts.fujitsu.com
+Welcome to the Fujitsu SFTP server datastore.ts.fujitsu.com.
+(anonymous@datastore.ts.fujitsu.com) Password:          # password is "ftp"
+Connected to datastore.ts.fujitsu.com.
+sftp> cd outgoing
+sftp> get myscript
+Fetching /outgoing/myscript to myscript
+myscript                                      100%  792    14.1KB/s   00:00
+sftp> quit
+```
+
+=== Archive verwalten: tar und zip
+
+==== tar
+~~~
+HMBJOrth@G02DEXN04899 /tmp/linux
+$ tar czf archiv.tgz TOI   # gezipptes Archiv erstellen
+
+HMBJOrth@G02DEXN04899 /tmp/linux
+$ tar tzf archiv.tgz   # Archiv-Inhalt anzeigen
+TOI/
+TOI/b
+TOI/Datenaustausch-FTS-Kunde.pptx
+TOI/environment
+TOI/IrmcConfig.json
+TOI/ismnodes.json
+TOI/myscript
+TOI/nagios.yml
+TOI/out
+TOI/people.json
+TOI/people.yml
+TOI/profile.json
+TOI/project.txt
+TOI/sshd_config
+TOI/themen
+
+HMBJOrth@G02DEXN04899 /tmp/linux
+$ tar xzf archiv.tgz    # Archiv auspacken
+
+~~~
+
+==== zip
+
+Achtung: zip kümmert sich nicht um Zugriffsrechte. Jedes file muss separat angegeben werden.
+
+```
+HMBJOrth@G02DEXN04899 /tmp/linux
+$ zip archiv.zip TOI/*   # create archiv
+  adding: TOI/Datenaustausch-FTS-Kunde.pptx (deflated 20%)
+  adding: TOI/IrmcConfig.json (deflated 93%)
+  adding: TOI/b (stored 0%)
+  adding: TOI/environment (deflated 66%)
+  adding: TOI/ismnodes.json (deflated 91%)
+  adding: TOI/myscript (deflated 67%)
+  adding: TOI/nagios.yml (deflated 48%)
+  adding: TOI/out (deflated 66%)
+  adding: TOI/people.json (deflated 69%)
+  adding: TOI/people.yml (deflated 58%)
+  adding: TOI/profile.json (deflated 80%)
+  adding: TOI/project.txt (deflated 17%)
+  adding: TOI/sshd_config (deflated 55%)
+  adding: TOI/themen (deflated 11%)
+
+HMBJOrth@G02DEXN04899 /tmp/linux
+$ unzip -l archiv.zip    # list archiv
+Archive:  archiv.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+    41689  04-13-2023 08:45   TOI/Datenaustausch-FTS-Kunde.pptx
+   115032  04-11-2023 08:16   TOI/IrmcConfig.json
+       12  04-11-2023 08:16   TOI/b
+      168  04-11-2023 08:16   TOI/environment
+    48590  04-11-2023 08:16   TOI/ismnodes.json
+      792  04-13-2023 08:41   TOI/myscript
+      359  04-11-2023 08:16   TOI/nagios.yml
+      168  04-11-2023 08:16   TOI/out
+      859  04-11-2023 08:16   TOI/people.json
+      527  04-11-2023 08:16   TOI/people.yml
+     1679  04-11-2023 08:16   TOI/profile.json
+      105  04-11-2023 08:16   TOI/project.txt
+     3103  04-11-2023 08:16   TOI/sshd_config
+      107  04-11-2023 08:16   TOI/themen
+---------                     -------
+   213190                     14 files
+
+HMBJOrth@G02DEXN04899 /tmp/linux
+$ unzip archiv.zip   # extract archiv
+
+```
+
+== 2023-04-04: Dies und das
 
 === Rechnen
 * Bash: `echo $\(( 22/7 ))`
