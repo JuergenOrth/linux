@@ -50,7 +50,7 @@ sftp> quit
 === Archive verwalten: tar und zip
 
 ==== tar
-~~~
+```
 HMBJOrth@G02DEXN04899 /tmp/linux
 $ tar czf archiv.tgz TOI   # gezipptes Archiv erstellen
 
@@ -74,8 +74,7 @@ TOI/themen
 
 HMBJOrth@G02DEXN04899 /tmp/linux
 $ tar xzf archiv.tgz    # Archiv auspacken
-
-~~~
+```
 
 ==== zip
 
